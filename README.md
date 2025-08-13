@@ -1,2 +1,2 @@
-# Computational_LabS5
+# Computational_Lab
 just for our lab
