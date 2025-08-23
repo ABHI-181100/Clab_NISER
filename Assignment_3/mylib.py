@@ -213,4 +213,34 @@ class LU_matrix():
             for i in range(j + 1, n):
                 L[i][j] = (A[i][j] - sum(L[i][k] * U[k][j] for k in range(j))) / U[j][j]
 
+
         return L, U
+
+
+class LU_decomposition():
+    def __init__(self):
+        pass
+
+    def LU_matrix(self,A):
+        n=len(A)
+        # for i in range(len(A)):
+        #     A[0][i]=A[0][i]
+        for i in range(1,n):
+            A[i][0]= A[i][0]/A[0][0]
+
+
+        for j in range (1,n):
+            for i in range(1,n):
+                if i<=j:
+                    sum = 0
+                    for k in range (0,i):
+                        sum += A[i][k] * A[k][j]
+                    A[i][j] = A[i][j] - sum
+
+                else:
+                    sum2 = 0 
+                    for k in range(0,j):
+                        sum2 += A[i][k]*A[k][j]
+                    A[i][j] = (A[i][j] - sum2)/ (A[j][j])
+
+        return A
