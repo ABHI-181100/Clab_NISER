@@ -1,26 +1,35 @@
-# ---------abhinav raj 2311006-------------------------------
-# --------question no. 1 -------using dolittle method---------
+# -----------Abhinav Raj 2311006----------
+# ------------Question : 1 ---------------
+# Find LU decomposition of the matrix and verify. The LU decomposition routine
+# must be kept in the library for later use. Mention your choice of Doolittle or Crout clearly -----
+# ---------------using Dolittle method------------------------------------
+
 
 from mylib import *
 
-read1 = read_matrix()
-A = read1.read_matrix1("matrixA.txt")
-print("given matrix : ",A)
+A = read_matrix().read_matrix1("matrixA.txt")
 
+LU_decomposition().LU_matrix(A)
 
-d= LU_matrix().dolittle(A)
-print("L_matrix, U_matrix are: ",d)
+L=[[0 for _ in range(len(A))] for _ in range(len(A))]
+U=[[0 for _ in range(len(A))] for _ in range(len(A))]
 
-y=matrix_multiplication().matrix_multiply(d[0], d[1])
-print("matrix verified : ",y)
+for i in range (len(A)):
+    for j in range (len(A)):
+        if i > j :
+            L[i][j] = A[i][j]
 
-# ##############################################
-# ---------output -----------------------------
+        elif i <= j :
+            U[i][j] = A[i][j]
+            if i==j:
+                L[i][i] = 1
+print("Original matrix : ", read_matrix().read_matrix1("matrixA.txt"))
+print(f"Lower is : {L} \n Upper is : {U}")
+print("Multiplication of L and U is : ",matrix_multiplication().matrix_multiply(L,U))
 
-# given matrix : [[1.0, 2.0, 4.0], [3.0, 8.0, 14.0], [2.0, 6.0, 13.0]]
-# L_matrix, U_matrix are:  ([[1, 0, 0], [3.0, 1, 0], [2.0, 1.0, 1]], [[1.0, 2.0, 4.0], [0, 2.0, 2.0], [0, 0, 3.0]])
-# matrix verified : [[1.0, 2.0, 4.0], [3.0, 8.0, 14.0], [2.0, 6.0, 13.0]]
-
-#######################################################3
-
-
+###########################################################################################################
+# Original matrix :  [[1.0, 2.0, 4.0], [3.0, 8.0, 14.0], [2.0, 6.0, 13.0]]
+# Lower is : [[1, 0, 0], [3.0, 1, 0], [2.0, 1.0, 1]] 
+#  Upper is : [[1.0, 2.0, 4.0], [0, 2.0, 2.0], [0, 0, 3.0]]
+# Multiplication of L and U is :  [[1.0, 2.0, 4.0], [3.0, 8.0, 14.0], [2.0, 6.0, 13.0]]
+###########################################################################################################
