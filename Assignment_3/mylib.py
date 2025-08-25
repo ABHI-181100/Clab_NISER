@@ -244,3 +244,36 @@ class LU_decomposition():
                     A[i][j] = (A[i][j] - sum2)/ (A[j][j])
 
         return A
+
+class solve():
+    def __init__(self):
+        pass
+
+    def solve2(self,A,B):
+        y=[[0] for _ in range(len(A))]
+        x=[[0] for _ in range(len(A))]
+
+        n=len(A)
+
+        y[0][0] = B[0][0]
+        
+
+        for i in range(1,n):
+            sum = 0
+            for j in range (i):
+                sum += A[i][j] * y[j][0]
+                
+
+            y[i][0] = B[i][0] - sum
+
+        x[n-1][0] = y[n-1][0] / A[n-1][n-1]
+
+        for i in range (n-2,-1,-1):
+            sum2=0
+            for j in range (i+1,n):
+                sum2 += A[i][j] * x[j][0]
+
+            x[i][0] = (y[i][0]-sum2)/ A[i][i]
+
+        return x
+
