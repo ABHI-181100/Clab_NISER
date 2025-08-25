@@ -33,3 +33,28 @@ print("Multiplication of L and U is : ",matrix_multiplication().matrix_multiply(
 #  Upper is : [[1.0, 2.0, 4.0], [0, 2.0, 2.0], [0, 0, 3.0]]
 # Multiplication of L and U is :  [[1.0, 2.0, 4.0], [3.0, 8.0, 14.0], [2.0, 6.0, 13.0]]
 ###########################################################################################################
+
+
+from mylib import *
+
+A = read_matrix().read_matrix1("t3.txt")
+B = read_matrix().read_matrix1("t4.txt")
+LU_decomposition().LU_matrix(A)
+n = len(A)
+
+for i in range(n):
+    print(f"value of a_{i+1} is : ", solve().solve2(A,B)[i][0])
+
+##################################################
+# ----------output----------------------------
+
+# value of a_1 is :  -1.761817043997862
+# value of a_2 is :  0.8962280338740133
+# value of a_3 is :  4.051931404116158
+# value of a_4 is :  -1.6171308025395421
+# value of a_5 is :  2.041913538501913
+# value of a_6 is :  0.15183248715593525   
+
+
+################################################
+
