@@ -1,0 +1,74 @@
+# ---------Abhinav raj- 2311006----------------
+# -----------question_1-----------------
+
+from mylib import *
+
+A = read_matrix().read_matrix1("t7.txt")
+B = read_matrix().read_matrix1("t9.txt")
+
+n= len(A)
+def symm(A): #checking symmetricity
+    A_symm = [[0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            A_symm[i][j] = A[j][i]
+    if A_symm == A:
+        return "A is symmetric matrix"
+
+print(symm(A))
+print(cholesky_decom().cholesky_solve(A,B),"value of x1,x2,x3,x4,x5,x6")
+
+
+# ---------using gauss_seidel-method------------------
+
+C = read_matrix().read_matrix1("t7.txt")
+D = read_matrix().read_matrix1("t9.txt")
+
+print(GaussSeidel().gauss_seidel_iter(C,D),"value of x1,x2,x3,x4,x5,x6")
+
+
+
+# ##############################################################################
+###############-------output---------##########################################
+
+# A is symmetric matrix
+# [[1.0], [0.9999999999999999], [1.0], [1.0], [1.0], [1.0]] value of x1,x2,x3,x4,x5,x6
+# [[0.9999997530614102], [0.9999997892247294], [0.9999999100460266], [0.9999998509593769], [0.9999998727858708], [0.9999999457079743]] value of x1,x2,x3,x4,x5,x6
+
+# ###################################################################################
+
+
+
+# ---------Abhinav raj-----------------
+# -----------question_2--solving linear equation---------------
+
+from mylib import *
+
+E = read_matrix().read_matrix1("t8.txt")
+F = read_matrix().read_matrix1("t10.txt")
+
+A_rearranged = diadominant().dia_dominant(E)
+print("diagonally dominant matrix used here :")
+for row in A_rearranged:
+    print(row)
+
+print(GaussSeidel().gauss_seidel_iter(A_rearranged,F),"value of x1,x2,x3,x4,x5,x6(from gauss_seidel)")
+print(Jacobi1().jacobi_iter(A_rearranged,F),"value of x1,x2,x3,x4,x5,x6(from jacobi)")
+
+
+
+###############################################################################333
+###############3---output----------############################################
+
+# diagonally dominant matrix used here :
+# [11.0, 3.0, 0.0, 1.0, 2.0]
+# [0.0, 4.0, 2.0, 0.0, 1.0]
+# [3.0, 2.0, 7.0, 1.0, 0.0]
+# [4.0, 0.0, 4.0, 10.0, 1.0]
+# [2.0, 5.0, 1.0, 3.0, 13.0]
+# [[2.560877030360807], [-3.1248671821241274], [13.123735388656117], [-1.2990447945010095], [1.251998526518918]] value of x1,x2,x3,x4,x5,x6(from gauss_seidel)     
+# [[2.5608775025314787], [-3.124867015613657], [13.123735739293247], [-1.2990445731313975], [1.251998943925148]] value of x1,x2,x3,x4,x5,x6(from jacobi)
+
+
+##########################################################################333
