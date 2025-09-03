@@ -1,18 +1,18 @@
 ####----------Abhinav raj 2311006--------------------
 ######-------- Question no.1 -------------------------
 
-# import math 
-# from mylib import root
-# def fun(x):
-#     return math.log(x/2) - math.sin(5*x/2)
+import math 
+from mylib import root
+def fun(x):
+    return math.log(x/2) - math.sin(5*x/2)
 
-# a = 1.5
-# b = 3.0
+a = 1.5
+b = 3.0
 
-# y = root().bracketting(fun,a,b,iter=100,acc=10e-6)
-# print(y,"root using bisection method")
-# j = root().rfalsi(fun,a,b,iter=100,acc=10e-6)
-# print(j,"root using regula_falsi method")
+y = root().bisection(fun,a,b,iter=100,acc=10e-6)
+print(y,"root using bisection method")
+j = root().rfalsi(fun,a,b,iter=100,acc=10e-6)
+print(j,"root using regula_falsi method")
 
 ####################################################3
 ###########---------output----############################
@@ -20,3 +20,21 @@
 # 2.62314050689124 root using regula_falsi method
 
 ########################################################
+
+######-----------question no. 2--------------------------
+
+def fun2(x):
+    return  - x - math.cos(x)
+
+a = 2.0
+b = 4.0
+
+y = root().bracketting(fun2,a,b,iter=100,acc=10e-6)
+print(y,"root lie in this interval")
+
+#############################################
+#############----output----------------
+
+# [-1.0, 4.0] root lie in this interval
+
+################################################
