@@ -1,0 +1,34 @@
+# ####----------Abhinav raj 2311006--------------------
+# ######-------- Question no.1 -------------------------
+
+import math 
+from mylib import root
+def fun(x):
+    return 3*x + math.sin(x) - math.exp(x)
+
+def f1(x):
+    return 3 + math.cos(x) - math.exp(x)
+
+a= -1.5
+b= 1.5
+x0 = 0.5
+
+p = root().bisection(fun,a,b,iter=100,acc=10e-6)
+print(p,"root using bisection method, iteration steps")
+
+q = root().rfalsi(fun,a,b,iter=100,acc=10e-6)
+print(q,"root using regula_falsi method, iteration steps")
+       
+r = root().n_raphson(fun,f1,a,b,x0,iter=100,acc=10e-6)
+print(r,"root using n_raphson method, iteration steps")
+
+x= [p[1],q[1],r[1]]
+print(x,"iteration steps for bisection,regula_falsi and n_raphson method respectively")
+####################################################3
+###########---------output----############################
+
+# [0.36042460158954015, 9] root using regula_falsi method, iteration steps
+# [0.36042170269544793, 3] root using n_raphson method, iteration steps
+# [17, 9, 3] iteration steps for bisection,regula_falsi and n_raphson method respectively
+
+########################################################
