@@ -1,0 +1,47 @@
+# -------------- ABHINAV RAJ 2311006---------------
+# -------------- Assignment 8 -----------------
+
+#  -----USING GAUSS JORDAN ELIMINATION METHOD-----
+
+import math
+from mylib import *
+
+def F(x):
+    x1, x2, x3 = x
+    return [
+        x1**2 + x2 - 37,
+        x1 - x2**2 - 5,
+        x1 + x2 + x3 - 3
+    ]
+# Jacobian matrix
+def J(x):
+    x1, x2, x3 = x
+    return [
+        [2*x1, 1, 0],
+        [1, -2*x2, 0],
+        [1, 1, 1]
+    ]
+def G(x):
+    x1, x2, _ = x
+    x1_new = math.sqrt(max(0, 37 - x2))  # for non-zero sqrt argument
+    x2_new = math.sqrt(max(0, x1 - 5))
+    x3_new = 3 - x1 - x2
+    return [x1_new, x2_new, x3_new]
+
+
+# Initial guess
+x0 = [3.0, 2.0, -2.0]
+
+fp_sol, fp_iter = MultivariableFunction().fixed_point(G, x0)
+print("Fixed-point solution:", fp_sol, "in", fp_iter, "iterations")
+
+nr_gj_sol, nr_gj_iter = MultivariableFunction().newton_raphson_gj(F, J, x0)
+print("Newton-Raphson solution:", nr_gj_sol, "in", nr_gj_iter, "iterations")
+
+#################################################################################
+################----------output------------------####################33
+
+# Fixed-point solution: [5.999999989801677, 1.0000000053789422, -4.0000001331377595] in 12 iterations
+# Newton-Raphson solution: [5.999999999909294, 1.00000000110433, -4.000000001013625] in 6 iterations
+
+#################################################################################
