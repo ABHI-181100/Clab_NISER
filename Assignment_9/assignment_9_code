@@ -1,0 +1,28 @@
+#------Finding the root of a polynomial using Laguerre's method--------
+# p1(x): x**4 - x**3 -7*x**2 + x + 6
+# p2(x): x**4 - 5*x**2 +4
+# p3(x): 2*x**5 - 19.5*x**3 + 0.5 *x**2 + 13.5*x - 4.5
+
+# ------ Abhinav Raj 2311006 ---------------
+# -------------Assignment 9 -----------------
+
+
+from mylib import *
+
+coeffsP1 = [1, -1, -7, 1, 6]
+coeffsP3 = [2, 0, -19.5, 0.5, 13.5, -4.5]
+coeffsP2 = [1, 0, -5, 0, 4]
+rootsP1 = deflation().find_all_roots(coeffsP1)
+rootsP2 = deflation().find_all_roots(coeffsP2)
+rootsP3 = deflation().find_all_roots(coeffsP3)
+for i, roots in enumerate([rootsP1, rootsP2, rootsP3], start=1):
+    print(f"Roots_for_Polynomial_equation P{i}:", roots)
+
+#################################################################################
+################----------output------------------#############################
+
+# Roots_for_Polynomial_equation P1: [-1.0, 0.9999999999929006, -1.9999999999971605, 3.0000000000042597]
+# Roots_for_Polynomial_equation P2: [1.0, -0.999999996112025, 1.9999999990280064, -2.0000000029159812]
+# Roots_for_Polynomial_equation P3: [0.4999218679385703, 0.5000781286894971, -0.9999999955487126, 2.999999999465806, -3.000000000545161]
+
+#################################################################################
