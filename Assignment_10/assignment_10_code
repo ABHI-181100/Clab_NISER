@@ -1,0 +1,58 @@
+import math
+import matplotlib.pyplot as plt
+from mylib import *
+
+def f1(x):
+    return 1/x
+
+def f2(x):
+    return x*math.cos(x)
+
+def f3(x):
+    return x* math.atan(x)
+
+for n in [4, 8,15,20]:
+    print( integral_solving().midpoint_integral(1, 2, n, f1)," for n= ", n, "midpoint method")
+    print( integral_solving().midpoint_integral(0, 1.570, n, f2)," for n= ", n, "midpoint method")
+    print( integral_solving().midpoint_integral(0, 1, n, f3)," for n= ", n, "midpoint method")
+
+    print( integral_solving().trapezoidal_integral(1, 2, n, f1)," for n= ", n," trapezoidal method")
+    print( integral_solving().trapezoidal_integral(0, 1.570, n, f2)," for n= ", n," trapezoidal method")
+    print( integral_solving().trapezoidal_integral(0, 1, n, f3)," for n= ", n," trapezoidal method")
+
+##############################################################
+# ideal values:                      f1 = 0.69314718            f2 = 0.57079632679          f3 = 0.2853981634
+# output values:
+# 0.6912198912198912  for n=  4 midpoint method  f1
+# 0.5874200856138809  for n=  4 midpoint method  f2
+# 0.2820460493571144  for n=  4 midpoint method  f3
+
+# 0.5630952380952381  for n=  4  trapezoidal method  f1
+# 0.4488559726405333  for n=  4  trapezoidal method  f2
+# 0.13359534651990018  for n=  4  trapezoidal method  f3
+
+# 0.6926605540432034  for n=  8 midpoint method f1
+# 0.5749270102888203  for n=  8 midpoint method f2
+# 0.2845610193056679  for n=  8 midpoint method f3
+
+# 0.629538517038517  for n=  8  trapezoidal method f1
+# 0.5360277182548276  for n=  8  trapezoidal method f2
+# 0.19867379680888492  for n=  8  trapezoidal method f3
+
+# 0.6930084263712957  for n=  15 midpoint method f1
+# 0.5719692414744406  for n=  15 midpoint method f2
+# 0.28516010270349235  for n=  15 midpoint method f3
+
+# 0.659516758381053  for n=  15  trapezoidal method f1
+# 0.5603116183554326  for n=  15  trapezoidal method f2
+# 0.23633208794067292  for n=  15  trapezoidal method f3
+
+# 0.6930690982255869  for n=  20 midpoint method f1
+# 0.5714557094275066  for n=  20 midpoint method f2
+# 0.2852642601614453  for n=  20 midpoint method f3
+
+# 0.6679828689721811  for n=  20  trapezoidal method f1
+# 0.5647899242990477  for n=  20  trapezoidal method f2
+# 0.24798664384725724  for n=  20  trapezoidal method f3
+
+##################################################################
