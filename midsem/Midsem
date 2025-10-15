@@ -37,7 +37,7 @@ while limit <= 10000:
 
     limit += 1
 
-ellipse_area_estimates = [area * 4 for area in y_val] 
+ellipse_area_estimates = [area * 8 for area in y_val] 
 plt.scatter(x_val, ellipse_area_estimates)
 plt.xlabel("number of iterations")
 plt.ylabel("Estimated area of ellipse")
@@ -49,7 +49,7 @@ print("Average estimated area of ellipse is:", np.mean(ellipse_area_estimates))
 
 #######################-------output-------######################
 
-# Average estimated area of ellipse is: 3.8268930724564427
+# Average estimated area of ellipse is: 7.65378614491
 
 ##################################################################
 
@@ -62,24 +62,28 @@ def fun(x):
     return  (x-5)*math.exp(x) + 5
 
 def f1(x):
-    return  math.exp(x)*(x-5) + math.exp(x)
+    return  math.exp(x) * (x - 4)
 
-
-a = 1
-b = 5
+a=1
+b=5
 x0 = 3  
 
 r = root().n_raphson(fun, f1, a, b, x0, iter=100, acc=1e-4)
 print(r, "root using n_raphson method, iteration steps")
+# --- Constants ---
+h = 6.626e-34
+c = 3e8
+k = 1.381e-23
 
-b_value = (6.626 * 10**-34) / (r[0]) * (1.381 * 10**-23)
-print("value of b:", b_value)
+# --- Wien's constant ---
+b_value = (h * c) / (k * r[0])
+print(f"Wien's constant b = {b_value:.6e} m·K")
 
 # ####################################################3
 # ###########---------output----############################
 
-# [4.6361948721632476e-07, 5] root using n_raphson method, iteration steps
-# value of b: 1.973710392317995e-50
+[4.636194872165416e-07, 5] root using n_raphson method, iteration steps
+Wien's constant b = 3.104683e+04 m·K 
 
 ##########################################################
 
@@ -103,10 +107,12 @@ for row in inverse_A:
     print([round(val, 3) for val in row])
 
 ##########################-------output-------######################
-# there is some error in my library in line self.forward and self.backward 
-# otherwise it is giving output if we directly use function without putting in class 
-
-# so .........
+Inverse of A using LU decomposition (rounded to 3 decimal places):
+[7.785, 1.254, -3.563, -0.007, 0.0]
+[0.111, 0.049, -0.143, -0.0, 0.0]
+[-0.001, -0.001, -0.0, 0.0, -0.0]
+[0.0, -0.0, -0.0, -0.0, 0.0]
+[2.25, 3.619, -0.708, -0.005, 0.0]
 ########################################################
 
 
