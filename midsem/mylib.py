@@ -283,7 +283,7 @@ class LU_decom():
         for i in range(n):
             y[i] = b[i] - sum(L[i][j] * y[j] for j in range(i))
         return y
-    def backward_substitution(U, y):
+    def backward_substitution(self,U, y):
         n = len(U)
         x = [0] * n
         for i in reversed(range(n)):
@@ -861,72 +861,3 @@ class integral_solving():
             sum += function(x)
         return sum*(Interval[1] - Interval[0])/parts
     
-class LU_decomp:
-    def __init__(self):
-        pass
-    def storeLU(self,A): # Gives the elements of L and U in single Matrix
-        val = len(A)
-        # ============== Using DOOLITTLE Composition ==================== #
-        for i in range(val):
-            A[0][i] = A[0][i]
-        for j in range(1,val):
-            A[j][0] = A[j][0] / A[0][0]
-        for i in range(1,val):
-            for j in range(1,val):
-                if j<=i:
-                    sum = 0
-                    for k in range(0, j):
-                        sum+= A[j][k]*A[k][i]
-                    A[j][i] -= sum
-                else:
-                    sum = 0
-                    for k in range(0, i):
-                        sum += A[j][k]*A[k][i]
-                    A[j][i] = (A[j][i] - sum) / A[i][i]
-        return A
-    def forback(self,A,B):
-        val = len(A)
-        result = self.storeLU(A)
-
-        # Forward substitution: solve L * Y = B
-        Y = [[0] for _ in range(val)]
-        Y[0][0] = B[0][0] 
-
-        for i in range(1, val):
-            sum1 = 0
-            for j in range(i):
-                sum1 += result[i][j] * Y[j][0]
-            Y[i][0] = B[i][0] - sum1            
-
-        # Back substitution: solve U * X = Y
-        X = [[0] for _ in range(val)]
-        X[-1][0] = Y[-1][0] / result[-1][-1]
-
-        for i in range(val-2, -1, -1):
-            sum2 = 0
-            for j in range(i+1, val):
-                sum2 += result[i][j] * X[j][0]
-            X[i][0] = (Y[i][0] - sum2) / result[i][i]
-        
-        return X
-    
-    def det(self, A):
-        D = self.storeLU(A)
-        p = 1
-        for i in range(len(D)):
-            p *= D[i][i]
-        return p
-    
-    def inverse_from_LU(A):
-        n = len(A)
-        L, U = extract_LU(A)
-        inv = []
-        for col in range(n):
-            e = [0.0]*n
-            e[col] = 1.0
-            y = forback(L, e)
-            x = backward_substitution(U, y)
-            inv.append(x)
-        # Transpose result to get columns as rows
-        inv_matrix = [[round(inv[j][i], 3) for j in range(n)] for i in range(n)]
-        return inv_matrix
