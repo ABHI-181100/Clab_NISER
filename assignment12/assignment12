@@ -1,0 +1,37 @@
+# ---------  abhinav raj 2311006 -----------
+#########################  question-1 ###########################
+
+
+import numpy as np
+from numpy.polynomial import legendre as P
+from mylib import *
+
+
+
+def f1(x):
+    return (x**2)/(1+x**4)
+
+print("Gaussian quadrature for f1 (n={}): {:.9f}".format(14, integral_solve().gauss_quadrature(f1, [-1, 1], 14)))
+
+############----output----#############################
+# Gaussian quadrature for f1 (n=14): 0.487495494
+
+#########################################################
+
+
+
+# ------------------------ question 2 ----------------------
+
+def f2(x):
+    return (1+x**4)**(0.5)
+
+
+print("Gaussian quadrature for f2 (n={}): {:.9f}".format(8, integral_solve().gauss_quadrature(f2, [0, 1], 8)))
+print("Simpson's rule (n={}): {:.9f}".format(19, integral_solve().Simpsons([0, 1], f2, 19)))
+
+############----output----#############################
+
+# Gaussian quadrature for f2 (n=8): 1.089429413
+# Simpson's rule (n=19): 1.089429413
+
+#########################################################
