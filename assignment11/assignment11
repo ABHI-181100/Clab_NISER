@@ -1,0 +1,56 @@
+import math
+import matplotlib.pyplot as plt
+from mylib import *
+
+
+def f1(x):
+    return 1/x 
+def f2(x):
+    return x*math.cos(x)
+
+
+# for f1:
+
+print("integration value using midpoint method",integral_solving().midpoint_integral(1,2, 289,f1))
+print("integration value using Simpson method", integral_solving().Simpsons([1,2], f1, 20))
+
+#  ------------------------ Output 1-------------------
+# The value of integration using midpoint method 0.6931468064035272
+# The value of integration using Simpsonsonethird method 0.6931473746651163
+
+
+# for f2:
+
+print("integration value using midpoint method",integral_solving().midpoint_integral(0, math.pi/2,610,f2))
+print("integration value using Simpson method",integral_solving().Simpsons([0, math.pi/2], f2, 22))
+
+#  ------------------------ Output 2 ------------------
+# The value of integration using midpoint method 0.5707970370864707
+# The value of integration using Simpsonsonethird method 0.570796987316687
+
+
+
+
+
+#--------------------------------------- Question 2 -------------------------------------
+# integral accurate up to 4 places in decimal
+
+
+def f3(x):
+    return (math.sin(x))**2
+
+L_x = []
+L_y = []
+
+for i in range(1,5000):
+    L_x.append(i)
+    L_y.append(integral_solving().monte_carlo(10000, [-1,1], f3, i))
+    if abs(L_y[0] - 0.545351286) <= 10**(-6): # Comparing it with actual value
+        break
+
+print(integral_solving().monte_carlo(10000, [-1,1], f3, 4000))
+plt.plot(L_x, L_y)
+plt.xlabel("Values of no. of parts")
+plt.ylabel("Values of integration")
+plt.show()
+
