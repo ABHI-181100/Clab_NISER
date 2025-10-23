@@ -934,11 +934,13 @@ class Damped_Harmonic_Oscillator():
         L_t = [a]
         L_x = [x0]
         L_v = [v0]
+        L_e = [(x0**2 + v0**2)/2]
 
         for _ in range(int((b - a) / h)):
             t = L_t[-1]
             x = L_x[-1]
             v = L_v[-1]
+           
 
             k1_x, k1_v = f(t, x, v)
             k2_x, k2_v = f(t + h / 2, x + h * k1_x / 2, v + h * k1_v / 2)
@@ -952,5 +954,7 @@ class Damped_Harmonic_Oscillator():
             L_t.append(t_new)
             L_x.append(x_new)
             L_v.append(v_new)
+            L_e.append((x_new**2 + v_new**2)/2)
 
-        return L_t, L_x, L_v
+        return L_t, L_x, L_v, L_e
+
