@@ -34,9 +34,11 @@ plt.show()
 #########################  question-2 ###########################
 
 
-t_vals, x_vals, v_vals = Damped_Harmonic_Oscillator().runge_kutta_damped(Damped_Harmonic_Oscillator().f_damped_oscillation, 0, 40, 1.0, 0.0, 0.1)
+
+t_vals, x_vals, v_vals, E = Damped_Harmonic_Oscillator().runge_kutta_damped(Damped_Harmonic_Oscillator().f_damped_oscillation, 0, 40, 1.0, 0.0, 0.1)
 plt.plot(t_vals, x_vals, label="Position")
 plt.plot(t_vals, v_vals, label="Velocity")
+plt.plot(t_vals, E, label="Energy")
 plt.xlabel("Time")
 plt.ylabel("Value ")
 plt.title("Damped Harmonic Oscillator")
