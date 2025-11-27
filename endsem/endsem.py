@@ -8,46 +8,48 @@ import matplotlib.pyplot as plt
 # # -------- Question no.1 -------------------------
 
 N = 5000
-M = 10000  # number of independent snapshots
+lp = N      # left particles
+rp = 0      # right particles
 
-# LCG parameters (common values)
-a = 1103515245
-c = 12345
-m = 2**31
-seed = 7
+lp_hist = [lp]
+rp_hist = [rp]
 
-sample = lcg().lcg_gen(2 * M - 1, seed, a, c, m)  # returns list length 2*M
-U = np.array(sample, dtype=float) / float(m)      # convert to floats in (0,1)
+for step in range(N):
+    # Generate random number using LCG
+    L = lcg().lcg_gen(1, 10, 1103515245, 12345, 32768)
+    rand = L[1] / 32768
 
-# Use Box-Muller to get approx standard normal variates (one per sample)
-u1 = U[0::2]
-u2 = U[1::2]                                                # here i use box-muller method may be there are other methods that will be easy but right now i am thinking of this so ....
-u1 = np.clip(u1, 1e-12, 1.0)  # avoid log(0)
-z = np.sqrt(-2.0 * np.log(u1)) * np.cos(2.0 * np.pi * u2)
+    # Probability that a particle moves from left to right is lp/N
+    if rand < lp / N:
+        lp -= 1
+        rp += 1
+    else:
+        rp -= 1
+        lp += 1
 
-# Map normals to binomial via mean and std (good approximation for large N)
-mean_theo = N * 0.5
-std_theo = np.sqrt(N * 0.5 * 0.5)
-samples = np.rint(mean_theo + std_theo * z).astype(int)
-samples = np.clip(samples, 0, N)  # ensure valid counts
+    lp_hist.append(lp)
+    rp_hist.append(rp)
 
-# Empirical statistics
-mean_emp = samples.mean()
-std_emp = samples.std(ddof=0)
+print(f"Final state after {N} time steps:")
+print(f"Particles on left: {lp}")
+print(f"Particles on right: {rp}")
+print(f"Total particles: {lp + rp}")
 
-print(f"Empirical mean (left): {mean_emp:.2f}, empirical std: {std_emp:.2f}")
-print(f"Theoretical mean (left): {mean_theo:.2f}, theoretical std: {std_theo:.2f}")
-
-# Plot histogram
-Plots().hist(samples.tolist(),
-             title=f"Equilibrium distribution (N={N})",
-             xlabel="Number of particles on left",
-             ylabel="Frequency",
-             bins=50)
+# Plot the equilibrium state
+time_steps = range(len(lp_hist))
+plt.plot(time_steps, lp_hist, 'b-', label='Left side (lp)', linewidth=2)
+plt.plot(time_steps, rp_hist, 'r-', label='Right side (rp)', linewidth=2)
+plt.xlabel('Time Steps')
+plt.ylabel('Number of Particles')
+plt.title('Particle Equilibrium: Two Halves with Hole in Wall')
+plt.legend()
+plt.show()
 
 ####################----output----------------##########
-# Empirical mean (left): 2500.39, empirical std: 35.85
-# Theoretical mean (left): 2500.00, theoretical std: 35.36
+#Final state after 5000 time steps:
+#Particles on left: 2518
+#Particles on right: 2482
+#Total particles: 5000
 #####################################################
 
 # # -------- Question no.2 -------------------------
@@ -86,7 +88,7 @@ else:
 # # -------- Question no.3 -------------------------
 
 def f(x):
-    return x*exp(x) - 25
+    return x*exp(x) - 2.5
 
 def df(x):
     return exp(x)*(1 + x)
@@ -97,7 +99,7 @@ root = roots().newton_raphson(f, df, x0, tol)
 print(f"Stretch x = {root:.6f} (units of length)")
 
 #########----output----------------################
-# Stretch x = 2.360150 (units of length)
+# Stretch x = 0.958586 (units of length)
 ################################################
 
 
@@ -136,7 +138,9 @@ I = [0.0, 2.414]   # time interval (2.414s calculated for maximum without air re
 h = 0.01         # RK4 step size
 
 t_list, y_list, v_list = solveDE().coupled_RK4(f1, f2, I, h, y0, v0)
-
+for i in range(len(v_list)):
+    if abs(v_list[i]) < 0.01:
+        print("max. height is ",y_list[i])
 plt.plot(y_list, v_list, label='v(y) from RK4')
 plt.xlabel('Height y (m)')
 plt.ylabel('Velocity v (m/s)')
@@ -145,6 +149,9 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+#################################
+# max. height is  4.934317509223526
+###################################
 
 
 
